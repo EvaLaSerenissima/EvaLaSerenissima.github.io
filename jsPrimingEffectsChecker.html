@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Priming Effects Checker</title>
+<style type="text/css">
+    div {text-align: center;}
+    table, tr, td {border-collapse: collapse;
+        border: 1px solid black;
+        margin: auto;
+        text-align: left;}
+    r {color: darkorange;
+        font-weight: bold;}
+    footer {font-size: small;}
+</style>
+</head>
+
+<body>
+<div>
+<textarea id="dataIn" rows="20" cols="50" placeholder="Paste your material here."></textarea>
+
+<p></p>
+<button onclick="myFunction()">Check</button>
+<p></p>
+
+<textarea id="dataOut" rows="15" cols="50"></textarea>
+<p></p>
+
+Sample material (<a href="sampleMaterial.xlsx">Download</a>)
+<table>
+    <tr>
+        <td>戴在<r>手</r>上看时间的这</td>
+        <td>块</td>
+        <td><r>手</r>表</td>
+    </tr>
+    <tr>
+        <td>当地人采购食材时逛的这</td>
+        <td>家</td>
+        <td>超市</td>
+    </tr>
+    <tr>
+        <td>警察们侦破的这</td>
+        <td>起</td>
+        <td>案件</td>
+    </tr>
+    <tr>
+        <td>为他发放贷款的这</td>
+        <td>家</td>
+        <td>银行</td>
+    </tr>
+    <tr>
+        <td>小李早晨为了提神喝的这</td>
+        <td>杯</td>
+        <td>咖啡</td>
+    </tr>
+    <tr>
+        <td>新郎戴在新娘无名<r>指</r>上的这</td>
+        <td>枚</td>
+        <td>戒<r>指</r></td>
+    </tr>
+    <tr>
+        <td>养了很多<r>家</r>禽家畜的这</td>
+        <td><r>家</r></td>
+        <td>农场</td>
+    </tr>
+    <tr>
+        <td>在这场话剧中担任主角的这</td>
+        <td>位</td>
+        <td>演员</td>
+    </tr>
+    <tr>
+        <td><r>张</r>贴在墙上用来宣传演出的这</td>
+        <td><r>张</r></td>
+        <td>海报</td>
+    </tr>
+</table>
+
+<br>
+<footer>Made with ❤️ for Chen's Research</footer>
+</div>
+</body>
+
+<script>
+    function myFunction()
+    {
+        var dataIn = document.getElementById("dataIn").value;
+        var dataOut = ""
+    
+        var sentences = dataIn.split('\n')
+        for (i = 0; i < sentences.length; i++)
+        {
+            var sen = sentences[i].split('\t')
+            var senFrame = sen[0], classifier = sen[1], noun = sen[2]
+            var noun0 = noun[0], noun1 = noun[1]
+            if (senFrame.includes(classifier)){
+                dataOut += `In line ${i+1}: ${classifier}-->${sen}\n`;}
+            if (senFrame.includes(noun0)){
+                dataOut += `In line ${i+1}: ${noun0}-->${sen}\n`;}
+            if (senFrame.includes(noun1)){
+                dataOut += `In line ${i+1}: ${noun1}-->${sen}\n`;}
+    
+        if (dataOut == ""){
+            document.getElementById("dataOut").innerHTML = "Congrats! No priming effects found!";}
+        else{
+            document.getElementById("dataOut").innerHTML = "Priming effects found:\n" + dataOut;}
+        }
+    }
+</script>
+</html>

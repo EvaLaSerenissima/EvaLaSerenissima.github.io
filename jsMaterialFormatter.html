@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Material Formatter</title>
+<style type="text/css">
+    div {text-align: center;}
+    table, tr, td {border-collapse: collapse;
+        border: 1px solid black;
+        margin: auto;
+        text-align: left;}
+    r {color: darkorange;
+        font-weight: bold;}
+    footer {font-size: small;}
+</style>
+</head>
+
+<body>
+<div>
+<textarea id="dataIn" rows="20" cols="50" placeholder="Paste your material here."></textarea>
+
+<div>Length (by phrases): 
+<input type="text" id="length" name="length" value="16">
+</div>
+
+
+<p></p>
+<button onclick="myFunction()">Format</button>
+<p></p>
+
+<textarea id="dataOut" rows="15" cols="50"></textarea>
+<p></p>
+
+Sample material (<a href="sampleMaterial2.xlsx">Download</a>)
+<table>
+    <tr>
+        <td>小李/早晨/为了/提神/喝/的/这/杯/咖啡/香气/浓郁。</td>
+    </tr>
+    <tr>
+        <td>当地人/采购/食材/时/逛/的/这/家/超市/尤其/火爆。</td>
+    </tr>
+    <tr>
+        <td>正在/结网/的/这/只/蜘蛛/动作/迅速。</td>
+    </tr>
+    <tr>
+        <td>为他/发放/贷款/的/这/家/银行/规模/庞大。</td>
+    </tr>
+    <tr>
+        <td>在/这场/话剧中/担任/主角/的/这/位/演员/演技/精湛。</td>
+    </tr>
+    <tr>
+        <td>警察们/侦破/的/这/起/案件/牵扯/甚广。</td>
+    </tr>
+    <tr>
+        <td>负责/驾驶/大巴/的/这/位/司机/经验/丰富。</td>
+    </tr>
+    <tr>
+        <td>他们/执行了/周密/的/计划，/令人/佩服。</td>
+    </tr>
+    <tr>
+        <td>小李/购买了/豪华/的/房子，/让人/羡慕。</td>
+    </tr>
+    <tr>
+        <td>小王/穿了/时尚/的/衣服，/引人/注目。</td>
+    </tr>
+    <tr>
+        <td>朋友/装修了/精致/的/房间，/非常/勤劳。</td>
+    </tr>
+</table>
+
+<br>
+<footer>Made with ❤️ for Chen's Research</footer>
+</div>
+</body>
+
+<script>
+    function myFunction()
+    {
+        var dataIn = document.getElementById("dataIn").value
+        var dataOut = ""
+        var length = document.getElementById("length").value
+        var sentences = dataIn.split('\n')
+
+        for (i = 0; i < sentences.length; i++)
+        {
+            var phrases = sentences[i].split('/')
+            var numOfSpaces = length - phrases.length
+            for (j = 0; j < numOfSpaces; j++)
+            {
+                dataOut += "\t"
+            }
+            for (k = 0; k < phrases.length; k++)
+            {
+                dataOut += phrases[k] + "\t"
+            }
+            dataOut += "\n"
+        }
+
+        document.getElementById("dataOut").innerHTML = dataOut;
+    }
+</script>
+</html>
