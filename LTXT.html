@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Leiden Time & Xi'an Time (beta)</title>
+    <link href="LTXT.css" rel="stylesheet">
+    <meta charset="utf-8">
+    </head>
+    <body>
+        <div class="LBox">
+            <div class="CityText">Leiden Time (CEST):</div><span></span>
+      
+        </div>
+
+        <div class="XBox">
+            <div class="CityText">Xi'an Time:</div><span></span>
+        </div>
+
+
+        <footer>Made with ❤️ for Chen's Research</footer>
+
+
+        <script>
+            //获取到span
+            var spans = document.getElementsByTagName("span");
+            //定义星期数组
+            var arr = ["Sun","Mon","Tue","Wed","Thur","Fri","Sat"];
+            //有名函数
+            function fn(){
+                var date = new Date();
+                //获得中时区的时间（毫秒）
+                var UTCTime = Date.now() + date.getTimezoneOffset()*60*1000;
+                //定义数组  
+                var timeArr = [
+                    dateFormat(UTCTime + 2*60*60*1000),  //L
+                    dateFormat(UTCTime + 8*60*60*1000),  //X
+                ];
+                //打印到控制台
+                console.log(timeArr);
+                //添加数据
+                for( var i = 0;i<spans.length;i++ ){
+                    spans[i].innerHTML = timeArr[i];
+                }
+            }
+            //执行
+            fn();
+            //多次执行的定时器
+            setInterval(fn,1000);        
+            //传入形参  计算年月日....
+            function dateFormat(d){
+                var date = new Date(d);
+                var YY = date.getFullYear();
+                var MM = addZero(date.getMonth() + 1) ;
+                var DD = addZero( date.getDate());
+                var Day = date.getDay();
+                var hh = addZero(date.getHours());
+                var mm = addZero(date.getMinutes());
+                var ss = addZero(date.getSeconds());
+                return  YY + "-" + MM + "-" + DD + "  " + arr[Day] + "  "  + hh + ":" + mm + ":" + ss
+            }
+            //使输出的格式为双数
+            function addZero ( n ){
+                return n < 10 ? "0" + n : n + "";
+            }        
+        </script>
+    </body>
+
+
+</html>
